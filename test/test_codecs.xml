@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codecs>
+    <codec id="nb0" type="numbin" length="0"/>
+	<codec id="bin" type="binary" length="0"/>
+	<codec id="nb4" type="numbin" length="4"/>
+	<codec id="n7" type="numpck" length="7"/>
+    <codec id="b1" type="binary" length="1"/>
+	<codec id="n4" type="strpck" length="4"/>
+	<codec id="n0" type="numpck" length="0"/>
+	<codec id="lvar" type="numbin" length="1"/>
+	<codec id="nvar" type="prefixedlength" length="lvar" content="n0"/>
+    <codec id="ber" type="bertlv"/>
+	
+	<codec id="bitmap8" type="bitmap" length="8">
+	  <extention ref="1"/>
+	  <subcodec id="2" ref="nvar"/>
+	  <subcodec id="3" ref="n7"/>
+	</codec>
+	<codec id="iso8583" type="struct">
+	  <subcodec id="ITM" ref="n4"/>
+	  <subcodec id="Champ" ref="bitmap8"/>
+	</codec>
+
+	<codec id="pi_list" type="tlv" header="b1" length="lvar" content="bin">
+	  <subcodec id="07" ref="nb0"/>
+	</codec>
+	<codec id="lPi" type="prefixedlength" length="lvar" content="pi_list"/>
+
+	<codec id="cbComH" type="struct">
+	  <subcodec id="PGI" ref="b1"/>
+	  <subcodec id="PI" ref="lPi"/>
+	</codec>
+
+	<codec id="cbCom" type="headerlength" header="cbComH" length=".PI.07" content="iso8583" />
+	
+	<codec id="cbComIP" type="prefixedlength" length="nb4" content="cbCom" />
+
+</codecs>

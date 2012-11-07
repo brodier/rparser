@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codecs>
+    <codec id="nb0" type="numbin" length="0"/>
+	<codec id="num" type="numpck" length="0"/>
+	<codec id="strpck" type="strpck" length="0"/>
+	<codec id="asc" type="string" length="0"/>
+	<codec id="bin" type="binary" length="0"/>
+
+	<codec id="nb4" type="numbin" length="4"/>
+	<codec id="nb1" type="numbin" length="1"/>	
+	
+	<codec id="n1" type="numpck" length="1"/>
+	<codec id="n2" type="numpck" length="2"/>
+	<codec id="n3" type="numpck" length="3"/>
+	<codec id="n6" type="numpck" length="6"/>
+	<codec id="n8" type="numpck" length="8"/>
+	<codec id="n10" type="numpck" length="10"/>
+	<codec id="n12" type="numpck" length="12"/>
+	<codec id="n16" type="numpck" length="16"/>
+	<codec id="n42" type="numpck" length="42"/>
+		
+	<codec id="p3" type="strpck" length="3"/>
+	<codec id="p4" type="strpck" length="4"/>
+	<codec id="p6" type="strpck" length="6"/>
+	<codec id="p8" type="strpck" length="8"/>
+	<codec id="p10" type="strpck" length="10"/>
+	<codec id="p12" type="strpck" length="12"/>
+	
+	<codec id="nums2" type="numstr" length="2"/>
+	
+	<codec id="an1" type="string" length="1"/>
+	<codec id="an2" type="string" length="2"/>
+	<codec id="an3" type="string" length="3"/>
+	<codec id="an5" type="string" length="5"/>
+	<codec id="an6" type="string" length="6"/>
+	<codec id="an7" type="string" length="7"/>
+	<codec id="an8" type="string" length="8"/>
+	<codec id="an12" type="string" length="12"/>
+	<codec id="an15" type="string" length="15"/>
+	<codec id="an25" type="string" length="25"/>
+	<codec id="an40" type="string" length="40"/>
+	<codec id="an42" type="string" length="42"/>
+    
+	<codec id="b1" type="binary" length="1"/>
+	<codec id="b2" type="binary" length="2"/>
+	<codec id="b8" type="binary" length="8"/>
+	
+	<codec id="tlvb_acb2a" type="tlv" header="b2" length="nb1" content="bin">
+	</codec>
+
+	<codec id="tlva_acb2a" type="tlv" header="an2" length="nums2" content="asc">
+	</codec>
+
+	
+	<codec id="lvarp" type="prefixedlength" length="nb1" content="strpck"/>
+	<codec id="lvarn" type="prefixedlength" length="nb1" content="num"/>
+    <codec id="lvaran" type="prefixedlength" length="nb1" content="asc"/>
+	<codec id="lvar_tlvb_acb2a" type="prefixedlength" length="nb1" content="tlvb_acb2a"/>
+	<codec id="lvar_tlva_acb2a" type="prefixedlength" length="nb1" content="tlva_acb2a"/>
+    <codec id="bertlv" type="bertlv"/>
+
+	
+	<codec id="chps_acb2a" type="bitmap" length="8">
+	  <extention ref="1"/>
+	  <subcodec id="2" ref="lvarn"/>
+	  <subcodec id="3" ref="n6"/>
+	  <subcodec id="4" ref="n12"/>
+	  <subcodec id="6" ref="n12"/>
+	  <subcodec id="7" ref="n10"/>
+	  <subcodec id="10" ref="n8"/>
+	  <subcodec id="11" ref="n6"/>
+	  <subcodec id="12" ref="p6"/>
+	  <subcodec id="13" ref="p4"/>
+	  <subcodec id="14" ref="p4"/>
+	  <subcodec id="18" ref="p4"/>
+	  <subcodec id="19" ref="n3"/>
+	  <subcodec id="22" ref="p3"/>
+	  <subcodec id="23" ref="p3"/>
+	  <subcodec id="25" ref="n2"/>
+	  <subcodec id="26" ref="n2"/>
+	  <subcodec id="27" ref="n1"/>
+	  <subcodec id="32" ref="lvarn"/>
+	  <subcodec id="33" ref="lvarn"/>
+	  <subcodec id="35" ref="lvarp"/>
+	  <subcodec id="37" ref="an12"/>
+	  <subcodec id="38" ref="an6"/>
+	  <subcodec id="39" ref="an2"/>
+	  <subcodec id="40" ref="an3"/>
+	  <subcodec id="41" ref="an8"/>
+	  <subcodec id="42" ref="an15"/>
+	  <subcodec id="43" ref="an40"/>
+	  <subcodec id="44" ref="lvar_tlva_acb2a"/>
+	  <subcodec id="45" ref="lvaran"/>
+	  <subcodec id="47" ref="lvar_tlva_acb2a"/>
+	  <subcodec id="48" ref="lvaran"/>
+	  <subcodec id="49" ref="n3"/>	  
+	  <subcodec id="51" ref="n3"/>
+	  <subcodec id="52" ref="b8"/>
+	  <subcodec id="53" ref="n16"/>
+	  <subcodec id="54" ref="lvaran"/>
+	  <subcodec id="55" ref="lvar_tlvb_acb2a"/>
+	  <subcodec id="56" ref="n2"/>
+	  <subcodec id="58" ref="lvaran"/>
+	  <subcodec id="59" ref="lvar_tlvb_acb2a"/>
+	  <subcodec id="60" ref="lvaran"/>
+	  <subcodec id="61" ref="lvaran"/>
+	  <subcodec id="70" ref="n3"/>
+	  <subcodec id="90" ref="n42"/>
+	  <subcodec id="95" ref="an42"/>
+	</codec>
+	
+	<codec id="msg_acb2a" type="struct">
+	  <subcodec id="ITM" ref="p4"/>
+	  <subcodec id="Champ" ref="chps_acb2a"/>
+	</codec>
+
+	
+	<codec id="pi_list" type="tlv" header="b1" length="nb1" content="bin">
+	  <subcodec id="07" ref="nb0"/>
+	</codec>
+	<codec id="lPi" type="prefixedlength" length="nb1" content="pi_list"/>
+
+	<codec id="cbComH" type="struct">
+	  <subcodec id="PGI" ref="b1"/>
+	  <subcodec id="PI" ref="lPi"/>
+	</codec>
+
+	<codec id="msg_cbCom_acb2a" type="headerlength" header="cbComH" length=".PI.07" content="msg_acb2a" />
+	
+	<codec id="msg_acb2a_ip" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
+
+</codecs>
