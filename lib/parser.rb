@@ -1,4 +1,8 @@
 module Parser
+  require 'yaml'
+  require 'rexml/document'
+  include REXML
+  
   require 'parser/exceptions'
   require 'parser/fields'
   require 'parser/abstract_parser'
@@ -6,9 +10,6 @@ module Parser
   require 'parser/composed_parsers'
   require 'parser/simple_parsers'
   require 'parser/packed_parsers'
-  
-  require 'rexml/document'
-  include REXML
   
   def get_defaults_parsers
     files_list = Dir[Gem::Specification.find_by_name('parser').gem_dir + '/rsc/**/*.xml']
