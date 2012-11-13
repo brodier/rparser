@@ -1,8 +1,25 @@
 module Parser
+  class NilField
+    def nil?
+	  return true
+	end
+	
+	def get_id
+	 ""
+	end
+	
+	def get_value
+	  ""
+	end
+	
+	def get_sf_recursivly(id)
+	  return self
+	end
+  end
   class Field
     def initialize(id="*")
       @id = (id.nil? ? "*" : id)
-      @value = nil
+      @value = NilField.new
     end
 
     def get_id
@@ -35,7 +52,7 @@ module Parser
 			id = ids.slice!(0)
 			return get_sub_field(id).get_sf_recursivly(ids)
 		else
-			return nil
+			return NilField.new
 		end
 	end
 	
@@ -46,7 +63,7 @@ module Parser
 	def get_sub_field(id)
 	  sf_rec = @value[id]
 	  if sf_rec.nil?
-	    return nil
+	    return NilField.new
 	  else
 	    raise MultipleFieldError if sf_rec.last.size > 1
 		return @value[id].last.first
@@ -55,7 +72,7 @@ module Parser
 
     def get_sub_fields(id)
       if @value[id].nil?
-        return nil
+        return NilField.new
       else
         return @value[id].last
       end
