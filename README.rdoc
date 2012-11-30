@@ -1,4 +1,4 @@
-== rparser
+= rparser
 
 Generic parser that build field tree from a bytes buffer, based on xml description
 
