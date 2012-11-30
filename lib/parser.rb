@@ -1,6 +1,8 @@
 module Parser
   require 'yaml'
   require 'rexml/document'
+  require 'log4r'
+  include Log4r
   include REXML
   
   require 'parser/exceptions'
@@ -11,9 +13,14 @@ module Parser
   require 'parser/simple_parsers'
   require 'parser/packed_parsers'
   
+  LogParser = Logger.new 'parserLog'
+  LogParser.outputters = Outputter.stdout
+
   def get_defaults_parsers
     files_list = Dir[Gem::Specification.find_by_name('parser').gem_dir + '/rsc/**/*.xml']
-	codecs = {}
+	LogParser.info "Loading default parser in files [#{files_list.join(',')}]"
+
+        codecs = {}
 	files_list.each{|file|
 	  codecs.merge!(load_parsers_from_xml(file))
 	}
