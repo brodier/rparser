@@ -77,13 +77,17 @@ module Parser
 		  if @length_unknown
 		    raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
 		  else
-		    raise ParsingException, "Not enough data for parsing #{@id} in build_field"
+		    LogParser.warn("Not enough data for parsing #{@id} in build_field")
 		  end
+		  f = Field.new(id)
+		  f.set_value("")
+		else 
+	      f,working_buf = parser.parse(working_buf)
 		end
-	    f,working_buf = parser.parse(working_buf)
         f.set_id(id)
         msg.add_sub_field(f)
       }
+	  
 	  if working_buf.length > 0
 	    if @length_unknown 
 		  @remain = working_buf 
@@ -93,7 +97,8 @@ module Parser
 		  msg.add_sub_field(f)
 		end
 	  end
-      return msg
+      
+	  return msg
     end
 	
 	def add_subparser(id_field,parser)

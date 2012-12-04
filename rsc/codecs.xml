@@ -128,5 +128,127 @@
 	<codec id="msg_cbCom_acb2a" type="headerlength" header="cbComH" length=".PI.07" content="msg_acb2a" />
 	
 	<codec id="msg_acb2a_ip" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
+	
+	
+	<codec id="ber" type="bertlv" length="0"/>
+	
+	<codec id="a4"     type="string" length="4"/>
+	<codec id="LL"     type="numstr" length="2"/>
+	<codec id="LLL"    type="numstr" length="3"/>
+	<codec id="LLA"    type="prefixedlength" length="LL" content="asc"/>
+	<codec id="LLLA"   type="prefixedlength" length="LLL" content="asc"/>
+	<codec id="LLLB"   type="prefixedlength" length="LLL" content="bin"/>
+	<codec id="LLLber" type="prefixedlength" length="LLL" content="ber"/>
 
+    <codec id="CIS-N1"  type="numstr" length="1"/>
+	<codec id="CIS-N2"  type="numstr" length="2"/>
+	<codec id="CIS-N3"  type="numstr" length="3"/>
+	<codec id="CIS-N4"  type="numstr" length="4"/>
+	<codec id="CIS-N6"  type="numstr" length="6"/>
+	<codec id="CIS-N8"  type="numstr" length="8"/>
+	<codec id="CIS-N10" type="numstr" length="10"/>
+	<codec id="CIS-N12" type="numstr" length="12"/>
+	<codec id="CIS-N16" type="numstr" length="16"/>
+
+	<codec id="CIS-AN1" type="string" length="1"/>
+    <codec id="CIS-AN2" type="string" length="2"/>
+	<codec id="CIS-AN3"  type="string" length="3"/>
+	<codec id="CIS-AN6"  type="string" length="6"/>
+	<codec id="CIS-AN8"  type="string" length="8"/>
+	<codec id="CIS-AN12" type="string" length="12"/>
+	<codec id="CIS-AN15" type="string" length="15"/>
+	<codec id="CIS-AN40" type="string" length="40"/>
+
+	<codec id="CIS-B8" type="binary" length = "8"/>
+
+	<codec id="CIS-XN8" type="struct">
+	  <subcodec id="SF1" ref="CIS-AN1"/>
+	  <subcodec id="SF2" ref="CIS-N8"/>
+	</codec>
+	
+	<codec id="T2L2V" type="tlv" header="CIS-AN2" length="CIS-N2" content="asc"/>
+
+	<codec id="CIS-DE48-CONTENT" type="struct">
+		<subcodec id="TCC" ref="CIS-AN1"/>
+		<subcodec id="DE48SE" ref="T2L2V"/>
+	</codec>
+	
+	<codec id="CIS-DE48" type="prefixedlength" length="LLL" content="CIS-DE48-CONTENT" />
+	
+	<codec id="bitmap_cis" type="bitmap" length="8">
+	  <extention ref="1"/>
+	  <subcodec id="2" ref="LLA"/>
+	  <subcodec id="3" ref="CIS-N6"/>
+	  <subcodec id="4" ref="CIS-N12"/>
+	  <subcodec id="5" ref="CIS-N12"/>
+	  <subcodec id="6" ref="CIS-N12"/>
+	  <subcodec id="7" ref="CIS-N10"/>
+	  <subcodec id="8" ref="CIS-N8"/>
+	  <subcodec id="9" ref="CIS-N8"/>
+	  <subcodec id="10" ref="CIS-N8"/>
+	  <subcodec id="11" ref="CIS-N6"/>
+	  <subcodec id="12" ref="CIS-N6"/>
+	  <subcodec id="13" ref="CIS-N4"/>
+	  <subcodec id="14" ref="CIS-N4"/>
+	  <subcodec id="15" ref="CIS-N4"/>
+	  <subcodec id="16" ref="CIS-N4"/>
+	  <subcodec id="17" ref="CIS-N4"/>
+	  <subcodec id="18" ref="CIS-N4"/>
+	  <subcodec id="19" ref="CIS-N3"/>
+	  <subcodec id="20" ref="CIS-N3"/>
+	  <subcodec id="21" ref="CIS-N3"/>
+	  <subcodec id="22" ref="CIS-N3"/>
+	  <subcodec id="23" ref="CIS-N3"/>
+	  <subcodec id="24" ref="CIS-N3"/>
+	  <subcodec id="25" ref="CIS-N2"/>
+	  <subcodec id="26" ref="CIS-N2"/>
+	  <subcodec id="27" ref="CIS-N1"/>
+	  <subcodec id="28" ref="CIS-XN8"/>
+	  <subcodec id="29" ref="CIS-XN8"/>
+	  <subcodec id="30" ref="CIS-XN8"/>
+	  <subcodec id="31" ref="CIS-XN8"/>
+	  <subcodec id="32" ref="LLA"/>
+	  <subcodec id="33" ref="LLA"/>
+	  <subcodec id="34" ref="LLA"/>
+	  <subcodec id="35" ref="LLA"/>
+	  <subcodec id="36" ref="LLLA"/>
+	  <subcodec id="37" ref="CIS-AN12"/>
+	  <subcodec id="38" ref="CIS-AN6"/>
+	  <subcodec id="39" ref="CIS-AN2"/>
+	  <subcodec id="40" ref="CIS-AN3"/>
+	  <subcodec id="41" ref="CIS-AN8"/>
+	  <subcodec id="42" ref="CIS-AN15"/>
+	  <subcodec id="43" ref="CIS-AN40"/>
+	  <subcodec id="44" ref="LLA"/>
+	  <subcodec id="45" ref="LLA"/>
+	  <subcodec id="46" ref="LLLA"/>
+	  <subcodec id="47" ref="LLLA"/>
+	  <subcodec id="48" ref="CIS-DE48"/>
+	  <subcodec id="49" ref="CIS-N3"/>
+	  <subcodec id="50" ref="CIS-N3"/>
+	  <subcodec id="51" ref="CIS-N3"/>
+	  <subcodec id="52" ref="CIS-B8"/>
+	  <subcodec id="53" ref="CIS-N16"/>
+	  <subcodec id="54" ref="LLLA"/>
+	  <subcodec id="55" ref="LLLber"/>
+	  <subcodec id="56" ref="LLLA"/>
+	  <subcodec id="57" ref="LLLA"/>
+	  <subcodec id="58" ref="LLLA"/>
+	  <subcodec id="59" ref="LLLA"/>
+	  <subcodec id="60" ref="CIS-AN3"/>
+	  <subcodec id="61" ref="LLLA"/>
+	  <subcodec id="62" ref="LLLA"/>
+	  <subcodec id="63" ref="LLLA"/>
+	  <subcodec id="64" ref="CIS-B8"/>
+	  <subcodec id="102" ref="LLA"/>
+	  <subcodec id="127" ref="LLLA"/>
+	</codec>
+			
+	<codec id="MSG_CIS_CONTENT" type="struct">
+		<subcodec id="ITM" ref="a4"/>
+		<subcodec id="DE" ref="bitmap_cis"/>
+	</codec>
+	
+	<codec id="nb2" type="numbin" length="2"/>
+	<codec id="MSG_CIS" type="prefixedlength" length="nb2" content="MSG_CIS_CONTENT"/>
 </codecs>
