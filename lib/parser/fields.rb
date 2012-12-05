@@ -77,7 +77,28 @@ module Parser
         return @value[id].last
       end
     end
-  
+   
+   def to_html
+     html= "<li>" + @id
+	 
+	 if @value.kind_of? Hash
+	   html += "<ul>"
+	   @value.to_a.
+		   sort{|a,b| 
+			 a.last.first <=> b.last.first
+		   }.each{|k,rk_n_flds|
+		      rk_n_flds.last.each{|sf|
+				html += sf.to_html
+			  }
+		   }
+		html += "</ul>"   
+	 else
+	   html += ": " + @value.to_s 
+	 end
+	 html += "</li>"
+     return html
+   end
+   
    def to_yaml(tab="")
      s = ""
      if @value.kind_of? Hash
