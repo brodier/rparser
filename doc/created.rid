@@ -1,0 +1,13 @@
+Wed, 05 Dec 2012 20:05:18 +0100
+./test_parser.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./README.rdoc	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/simple_parsers.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/prefix_length_parsers.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/composed_parsers.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/abstract_parser.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/exceptions.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/packed_parsers.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser/fields.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./lib/parser.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./test/TestParser.rb	Wed, 05 Dec 2012 20:00:26 +0100
+./test/TestAcb2a.rb	Wed, 05 Dec 2012 20:00:26 +0100

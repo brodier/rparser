@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Parser.html">Parser</a>
+  
+    <li><a href="./Parser/AbstractParser.html">Parser::AbstractParser</a>
+  
+    <li><a href="./Parser/BertlvParser.html">Parser::BertlvParser</a>
+  
+    <li><a href="./Parser/BinaryParser.html">Parser::BinaryParser</a>
+  
+    <li><a href="./Parser/BitmapParser.html">Parser::BitmapParser</a>
+  
+    <li><a href="./Parser/ErrorBufferUnderflow.html">Parser::ErrorBufferUnderflow</a>
+  
+    <li><a href="./Parser/ErrorBuildingParser.html">Parser::ErrorBuildingParser</a>
+  
+    <li><a href="./Parser/ErrorRaiminingData.html">Parser::ErrorRaiminingData</a>
+  
+    <li><a href="./Parser/Field.html">Parser::Field</a>
+  
+    <li><a href="./Parser/HeaderlengthParser.html">Parser::HeaderlengthParser</a>
+  
+    <li><a href="./Parser/NilField.html">Parser::NilField</a>
+  
+    <li><a href="./Parser/NumbinParser.html">Parser::NumbinParser</a>
+  
+    <li><a href="./Parser/NumpckParser.html">Parser::NumpckParser</a>
+  
+    <li><a href="./Parser/NumstrParser.html">Parser::NumstrParser</a>
+  
+    <li><a href="./Parser/PackedParser.html">Parser::PackedParser</a>
+  
+    <li><a href="./Parser/ParsingException.html">Parser::ParsingException</a>
+  
+    <li><a href="./Parser/PrefixedlengthParser.html">Parser::PrefixedlengthParser</a>
+  
+    <li><a href="./Parser/StringParser.html">Parser::StringParser</a>
+  
+    <li><a href="./Parser/StrpckParser.html">Parser::StrpckParser</a>
+  
+    <li><a href="./Parser/StructParser.html">Parser::StructParser</a>
+  
+    <li><a href="./Parser/TagedParser.html">Parser::TagedParser</a>
+  
+    <li><a href="./Parser/TlvParser.html">Parser::TlvParser</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-rparser">rparser</h1>
+
+<p>Generic parser that build field tree from a bytes buffer, based on xml
+description</p>
+
+<h2 id="label-Sample">Sample</h2>
+
+<pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">'Parser'</span>
+<span class="ruby-identifier">include</span> <span class="ruby-constant">Parser</span>
+
+<span class="ruby-identifier">codecs</span> = <span class="ruby-identifier">load_parsers_from_xml</span>(<span class="ruby-string">'codecs.xml'</span>)
+
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_parse</span>(<span class="ruby-identifier">buf</span>,<span class="ruby-identifier">parser</span>)
+  <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">f</span>,<span class="ruby-identifier">r</span> = <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">buf</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ErrorBufferUnderflow</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Buffer Underflow : &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ParsingException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Error during parse : &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">else</span> 
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">to_yaml</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-identifier">buf1</span> = [<span class="ruby-string">&quot;01007038468100c28a201049741043362076380000000000000002801456060959511106411100510000270b04970112004131314130323538443031343539303820202020202020201e393631343530393735323231383030303234413030383131413032353844097801000000000000006a0082023c000095050000000000009c01005f24031507319f0607a00000004220109f260837088150dc39d60b9f2701809f33032090c09f360200489f370495560467df800100df8101020057134974104336207638d15072218398470960000f9f1007066e0a03a4200244010102166001020112020001420201063085022003060202040014590802030200010204020145020706000000000280020b07a000000042204201000201000205020250&quot;</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;H*&quot;</span>)
+<span class="ruby-identifier">test_parse</span>(<span class="ruby-identifier">buf1</span>,<span class="ruby-identifier">codecs</span>[<span class="ruby-string">&quot;msg_acb2a&quot;</span>])
+<span class="ruby-identifier">buf2</span> = [<span class="ruby-string">&quot;c1330702015c13020001150204061702000618057008100000190c5454534850414437373032311a0c5454534850413030303030310100723c66a188e28a21104974104336207638000000000000000280110609002714560609595111&quot;</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;H*&quot;</span>)
+<span class="ruby-identifier">test_parse</span>(<span class="ruby-identifier">buf2</span>,<span class="ruby-identifier">codecs</span>[<span class="ruby-string">&quot;msg_cbCom_acb2a&quot;</span>])
+<span class="ruby-identifier">buf3</span> = [<span class="ruby-string">&quot;0000005dc1330702015c13020001150204061702000618057008100000190c5454534850414437373032311a0c5454534850413030303030310100723c66a188e28a21104974104336207638000000000000000280110609002714560609595111&quot;</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;H*&quot;</span>)
+<span class="ruby-identifier">test_parse</span>(<span class="ruby-identifier">buf3</span>,<span class="ruby-identifier">codecs</span>[<span class="ruby-string">&quot;msg_acb2a_ip&quot;</span>])
+</pre>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
