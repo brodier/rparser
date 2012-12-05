@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module Parser - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/parser/simple_parsers.rb
+    <li>lib/parser/prefix_length_parsers.rb
+    <li>lib/parser/composed_parsers.rb
+    <li>lib/parser/abstract_parser.rb
+    <li>lib/parser/exceptions.rb
+    <li>lib/parser/packed_parsers.rb
+    <li>lib/parser/fields.rb
+    <li>lib/parser.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">Log4r</span>
+  
+  
+  
+    <li><span class="include">REXML</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-get_defaults_parsers">#get_defaults_parsers</a>
+    
+    <li><a href="#method-i-load_parsers_from_xml">#load_parsers_from_xml</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Parser.html">Parser</a>
+  
+    <li><a href="./Parser/AbstractParser.html">Parser::AbstractParser</a>
+  
+    <li><a href="./Parser/BertlvParser.html">Parser::BertlvParser</a>
+  
+    <li><a href="./Parser/BinaryParser.html">Parser::BinaryParser</a>
+  
+    <li><a href="./Parser/BitmapParser.html">Parser::BitmapParser</a>
+  
+    <li><a href="./Parser/ErrorBufferUnderflow.html">Parser::ErrorBufferUnderflow</a>
+  
+    <li><a href="./Parser/ErrorBuildingParser.html">Parser::ErrorBuildingParser</a>
+  
+    <li><a href="./Parser/ErrorRaiminingData.html">Parser::ErrorRaiminingData</a>
+  
+    <li><a href="./Parser/Field.html">Parser::Field</a>
+  
+    <li><a href="./Parser/HeaderlengthParser.html">Parser::HeaderlengthParser</a>
+  
+    <li><a href="./Parser/NilField.html">Parser::NilField</a>
+  
+    <li><a href="./Parser/NumbinParser.html">Parser::NumbinParser</a>
+  
+    <li><a href="./Parser/NumpckParser.html">Parser::NumpckParser</a>
+  
+    <li><a href="./Parser/NumstrParser.html">Parser::NumstrParser</a>
+  
+    <li><a href="./Parser/PackedParser.html">Parser::PackedParser</a>
+  
+    <li><a href="./Parser/ParsingException.html">Parser::ParsingException</a>
+  
+    <li><a href="./Parser/PrefixedlengthParser.html">Parser::PrefixedlengthParser</a>
+  
+    <li><a href="./Parser/StringParser.html">Parser::StringParser</a>
+  
+    <li><a href="./Parser/StrpckParser.html">Parser::StrpckParser</a>
+  
+    <li><a href="./Parser/StructParser.html">Parser::StructParser</a>
+  
+    <li><a href="./Parser/TagedParser.html">Parser::TagedParser</a>
+  
+    <li><a href="./Parser/TlvParser.html">Parser::TlvParser</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Parser</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="LogParser">LogParser
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_defaults_parsers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_defaults_parsers</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_defaults_parsers-source">
+            <pre><span class="ruby-comment"># File lib/parser.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_defaults_parsers</span>
+  <span class="ruby-identifier">files_list</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-constant">Gem</span><span class="ruby-operator">::</span><span class="ruby-constant">Specification</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-string">'parser'</span>).<span class="ruby-identifier">gem_dir</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/rsc/**/*.xml'</span>]
+      <span class="ruby-constant">LogParser</span>.<span class="ruby-identifier">info</span> <span class="ruby-node">&quot;Loading default parser in files [#{files_list.join(',')}]&quot;</span>
+
+      <span class="ruby-identifier">codecs</span> = {}
+      <span class="ruby-identifier">files_list</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">codecs</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">load_parsers_from_xml</span>(<span class="ruby-identifier">file</span>))
+      }
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">codecs</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_defaults_parsers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_defaults_parsers-method -->
+
+    
+      <div id="method-i-load_parsers_from_xml" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_parsers_from_xml</span><span
+            class="method-args">(xml_file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="load_parsers_from_xml-source">
+            <pre><span class="ruby-comment"># File lib/parser.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_parsers_from_xml</span>(<span class="ruby-identifier">xml_file</span>)
+  <span class="ruby-identifier">codecs</span> = {}
+      <span class="ruby-identifier">xml_def</span> = <span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">IO</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">xml_file</span>)).<span class="ruby-identifier">root</span>
+      <span class="ruby-identifier">xml_def</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'codec'</span>}.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">codec</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">att</span> = {}
+        <span class="ruby-identifier">codec</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">att</span>[<span class="ruby-identifier">k</span>]=<span class="ruby-identifier">v</span>}
+        <span class="ruby-identifier">type</span> = <span class="ruby-identifier">att</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">&quot;type&quot;</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ErrorBuildingParser</span>, <span class="ruby-string">&quot;Unable to build codec without a type&quot;</span>
+        <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">codecClass</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">codec</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-string">&quot;type&quot;</span>].<span class="ruby-identifier">capitalize</span> <span class="ruby-operator">+</span> <span class="ruby-string">'Parser'</span>)
+        <span class="ruby-keyword">end</span>
+        
+        <span class="ruby-identifier">codecId</span> = <span class="ruby-identifier">att</span>[<span class="ruby-string">'id'</span>]
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">codecId</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ErrorBuildingParser</span>, <span class="ruby-string">&quot;Unable to load codec without an id&quot;</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">att</span>[<span class="ruby-string">'codecs'</span>] = <span class="ruby-identifier">codecs</span>
+        <span class="ruby-identifier">codecs</span>[<span class="ruby-identifier">codecId</span>] = <span class="ruby-identifier">codecClass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">att</span>)
+        <span class="ruby-identifier">curr_codec</span> = <span class="ruby-identifier">codecs</span>[<span class="ruby-identifier">codecId</span>]
+        <span class="ruby-identifier">codec</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">sc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'subcodec'</span>}.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">sc</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">curr_codec</span>.<span class="ruby-identifier">add_subparser</span>(<span class="ruby-identifier">sc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-string">'id'</span>],<span class="ruby-identifier">codecs</span>[<span class="ruby-identifier">sc</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-string">'ref'</span>]])
+        }
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">curr_codec</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">BitmapParser</span>)
+              <span class="ruby-identifier">codec</span>.<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">sc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'extention'</span>}.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">extention</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">curr_codec</span>.<span class="ruby-identifier">add_extended_bitmap</span>(<span class="ruby-identifier">extention</span>.<span class="ruby-identifier">attributes</span>[<span class="ruby-string">'ref'</span>])
+              }
+        <span class="ruby-keyword">end</span>
+      }
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">codecs</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_parsers_from_xml-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_parsers_from_xml-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
