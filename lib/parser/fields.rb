@@ -19,7 +19,7 @@ module Parser
   class Field
     def initialize(id="*")
       @id = (id.nil? ? "*" : id)
-      @value = NilField.new
+      @value = ""
     end
 
     def get_id
@@ -31,6 +31,7 @@ module Parser
     end
 
     def set_value(value)
+	  raise "Error can not set value that is instance of Array" if value.kind_of? Array
       @value = value
     end
     
@@ -39,16 +40,15 @@ module Parser
     end
     
     def add_sub_field(sf)
-      @value = {} if @value.nil?
-	  raise "Add impossible on not Hash valued field" unless @value.kind_of? Hash
-	  @value[sf.get_id] = [@value.size,[]] if @value[sf.get_id].nil?
-	  @value[sf.get_id].last << sf
+      @value = [] if @value == ""
+	  raise "Add impossible on not Array valued field" unless @value.kind_of? Array
+	  @value << [sf.get_id,sf]
     end
     
 	def get_sf_recursivly(ids)
-		if(ids.size == 1 && @value.kind_of?(Hash))
+		if(ids.size == 1 && @value.kind_of?(Array))
 			return get_sub_field(ids.first)
-		elsif (ids.size > 1 && @value.kind_of?(Hash))
+		elsif (ids.size > 1 && @value.kind_of?(Array))
 			id = ids.slice!(0)
 			return get_sub_field(id).get_sf_recursivly(ids)
 		else
@@ -61,60 +61,36 @@ module Parser
 	end
     
 	def get_sub_field(id)
-	  sf_rec = @value[id]
+	  sf_rec = get_sub_fields(id)
 	  if sf_rec.nil?
 	    return NilField.new
-	  else
-	    raise MultipleFieldError if sf_rec.last.size > 1
-		return @value[id].last.first
+	  elsif sf_rec.size > 1
+	    raise MultipleFieldError 
+	  else 
+		return sf_rec.first
 	  end
     end
 
     def get_sub_fields(id)
-      if @value[id].nil?
+	  raise "Error No Subfield" unless @value.kind_of? Array
+	  sf_rec = @value.select{|v| v.first == id}.collect{|v| v.last}
+      if sf_rec == []
         return NilField.new
       else
-        return @value[id].last
+        return sf_rec
       end
     end
-   
-   def to_html
-     html= "<li>" + @id
-	 
-	 if @value.kind_of? Hash
-	   html += "<ul>"
-	   @value.to_a.
-		   sort{|a,b| 
-			 a.last.first <=> b.last.first
-		   }.each{|k,rk_n_flds|
-		      rk_n_flds.last.each{|sf|
-				html += sf.to_html
-			  }
-		   }
-		html += "</ul>"   
-	 else
-	   html += ": " + @value.to_s 
-	 end
-	 html += "</li>"
-     return html
-   end
-   
+  
    def to_yaml(tab="")
-     s = ""
-     if @value.kind_of? Hash
+     if @value.kind_of? Array
+	   s = tab + @id +": \n" 
 	   tab += "  "
-	   s += @id +": \n" 
-	   @value.to_a.
-		   sort{|a,b| 
-			 a.last.first <=> b.last.first
-		   }.each{|k,rk_n_flds|
-		      rk_n_flds.last.each{|sf|
-			    s += tab + sf.to_yaml(tab)
-			  }
-		   }
+	   @value.each{|v|
+	     s += v.last.to_yaml(tab)
+	   }
 	   return s
 	 else
-	   @id + ": " + @value.to_s + "\n"
+	   tab + @id + ": " + @value.to_s + "\n"
 	 end
    end   
   end
