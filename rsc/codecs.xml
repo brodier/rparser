@@ -109,7 +109,7 @@
 	  <subcodec id="95" ref="an42"/>
 	</codec>
 	
-	<codec id="msg_acb2a" type="struct">
+	<codec id="MSG_ACB2A" type="struct">
 	  <subcodec id="ITM" ref="p4"/>
 	  <subcodec id="Champ" ref="chps_acb2a"/>
 	</codec>
@@ -125,9 +125,9 @@
 	  <subcodec id="PI" ref="lPi"/>
 	</codec>
 
-	<codec id="msg_cbCom_acb2a" type="headerlength" header="cbComH" length=".PI.07" content="msg_acb2a" />
+	<codec id="msg_cbCom_acb2a" type="headerlength" header="cbComH" length=".PI.07" content="MSG_ACB2A" />
 	
-	<codec id="msg_acb2a_ip" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
+	<codec id="MSG_ACB2A_ip" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
 	
 	
 	<codec id="ber" type="bertlv" length="0"/>
@@ -244,11 +244,11 @@
 	  <subcodec id="127" ref="LLLA"/>
 	</codec>
 			
-	<codec id="MSG_CIS_CONTENT" type="struct">
+	<codec id="MSG_CIS" type="struct">
 		<subcodec id="ITM" ref="a4"/>
 		<subcodec id="DE" ref="bitmap_cis"/>
 	</codec>
 	
 	<codec id="nb2" type="numbin" length="2"/>
-	<codec id="MSG_CIS" type="prefixedlength" length="nb2" content="MSG_CIS_CONTENT"/>
+	<codec id="MSG_CIS_WITH_PREFIXED_LENGTH" type="prefixedlength" length="nb2" content="MSG_CIS"/>
 </codecs>
