@@ -46,7 +46,7 @@ module Parser
 		  f = Field.new("ERR") 
 		  f.set_value(buf.unpack("H*").first)
 		  msg.add_sub_field(f)
-          raise ParsingException,msg.to_yaml,"Error unknown field #{fieldToParse.to_s} : "
+          raise ParsingException,msg.to_yaml + "\nError unknown field #{fieldToParse.to_s} : "
         end
       end
       return msg,buf

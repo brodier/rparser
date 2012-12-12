@@ -216,6 +216,7 @@
 	<codec id="CIS-N6"  type="numstr" length="6"/>
 	<codec id="CIS-N8"  type="numstr" length="8"/>
 	<codec id="CIS-N10" type="numstr" length="10"/>
+	<codec id="CIS-N11" type="numstr" length="11"/>
 	<codec id="CIS-N12" type="numstr" length="12"/>
 	<codec id="CIS-N16" type="numstr" length="16"/>
 
@@ -243,6 +244,15 @@
 	</codec>
 	
 	<codec id="CIS-DE48" type="prefixedlength" length="LLL" content="CIS-DE48-CONTENT" />
+	
+	<codec id="CIS-DE90" type="struct">
+		<subcodec id="SF1" ref="CIS-N4"/>
+		<subcodec id="SF2" ref="CIS-N6"/>
+		<subcodec id="SF3" ref="CIS-N10"/>
+		<subcodec id="SF4" ref="CIS-N11"/>
+		<subcodec id="SF5" ref="CIS-N11"/>
+	</codec>
+	
 	
 	<codec id="bitmap_cis" type="bitmap" length="8">
 	  <extention ref="1"/>
@@ -309,6 +319,8 @@
 	  <subcodec id="62" ref="LLLA"/>
 	  <subcodec id="63" ref="LLLA"/>
 	  <subcodec id="64" ref="CIS-B8"/>
+	  <subcodec id="70" ref="CIS-N3"/>
+	  <subcodec id="90" ref="CIS-DE90"/>
 	  <subcodec id="102" ref="LLA"/>
 	  <subcodec id="127" ref="LLLA"/>
 	</codec>
