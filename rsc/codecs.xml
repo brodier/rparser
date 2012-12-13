@@ -198,6 +198,10 @@
 	  <subcodec id="ITM" ref="p4"/>
 	  <subcodec id="Champ" ref="chps_cbae"/>
 	</codec>
+
+	<codec id="MSG_CBCOM_CBAE" type="headerlength" header="cbComH" length=".PI.07" content="MSG_CBAE" />
+	
+	<codec id="MSG_CBAE_IP" type="prefixedlength" length="nb4" content="MSG_CBCOM_CBAE" />
 	
 	<codec id="ber" type="bertlv" length="0"/>
 	

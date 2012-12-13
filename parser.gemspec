@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'parser'
-  s.version     = '1.2.1'
+  s.version     = '1.2.2'
   s.date        = '2012-12-06'
   s.require_paths = ["lib"]
   s.summary     = "Generic parser plugin"
