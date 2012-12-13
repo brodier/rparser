@@ -77,7 +77,8 @@ module Parser
 		  if @length_unknown
 		    raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
 		  else
-		    LogParser.warn("Not enough data for parsing #{@id} in build_field")
+		    # TO FIX : create specific class for complete struct and partial struct parsing
+			# LogParser.warn("Not enough data for parsing #{@id} in build_field")
 		  end
 		  f = Field.new(id)
 		  f.set_value("")
