@@ -22,6 +22,7 @@ module Parser
 	    begin
 		  f,remain = @value_parser.parse_with_length(buf,len)
 		rescue => e
+		  LogParser.error "Error in #{@id} parser \n #{e.message}\n#{e.backtrace.join(10.chr)}"
 		  raise ParsingException, e.message
 		end
         f.set_id(@id)

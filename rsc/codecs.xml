@@ -129,7 +129,7 @@
 
 	<codec id="msg_cbCom_acb2a" type="headerlength" header="cbComH" length=".PI.07" content="MSG_ACB2A" />
 	
-	<codec id="MSG_ACB2A_ip" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
+	<codec id="MSG_ACB2A_IP" type="prefixedlength" length="nb4" content="msg_cbCom_acb2a" />
 	
 	<codec id="chps_cbae" type="bitmap" length="8">
 	  <extention ref="1"/>
@@ -335,5 +335,5 @@
 	</codec>
 	
 	<codec id="nb2" type="numbin" length="2"/>
-	<codec id="MSG_CIS_WITH_PREFIXED_LENGTH" type="prefixedlength" length="nb2" content="MSG_CIS"/>
+	<codec id="MSG_CIS_IP" type="prefixedlength" length="nb2" content="MSG_CIS"/>
 </codecs>

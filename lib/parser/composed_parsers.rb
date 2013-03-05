@@ -150,6 +150,7 @@ module Parser
 	
 	def read_length
 	 b = @data.slice!(0)
+	 b = b.getbyte(0) if b.kind_of?(String)
 	 if b & 0x80 == 0x80
 	   ll = b & 0x7F 
 	   lb = @data[0,ll]
@@ -170,6 +171,8 @@ module Parser
 	  while b == 0 || b == 255
 	    b = @data.slice!(0)
 	  end
+	  
+	  b = b.getbyte(0) if b.kind_of?(String)
 	  
 	  tag = b.chr
 	  
