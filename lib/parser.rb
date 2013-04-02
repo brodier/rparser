@@ -16,7 +16,36 @@ module Parser
   LogParser = Logger.new 'parserLog'
   LogParser.outputters = Outputter.stdout
 
-  def get_defaults_parsers
+  if defined?(PARSER_CONST).nil?
+    PARSER_CONST = true
+    PROTOCOL_HASH = {'MSG_CBAE_IP' => 1,
+	                        'MSG_CIS_IP' => 2,
+							'MSG_CBCOM_ACB2A' => 3}
+    PROTOCOL_NAME = {1 => 'MSG_CBAE_IP',
+	                        2 => 'MSG_CIS_IP',
+							3 => 'MSG_CBCOM_ACB2A'}
+							
+    ITM_PATH = {1 => 'MSG_CBAE.ITM',
+                       2 =>	'MSG_CIS.ITM',
+					   3 => 'MSG_ACB2A.ITM'}
+
+   CR_PATH   = {1 => 'MSG_CBAE.Champ.39',
+                       2 =>	'MSG_CIS.DE.39',
+					   3 => 'MSG_ACB2A.Champ.39'}
+					   
+	FIELDS_PATHS = {:cardholder => { 1 => 'MSG_CBAE.Champ.2',
+						  2 => 'MSG_CIS.DE.2',
+						  3 => 'MSG_ACB2A.Champ.2'},
+	                    :merchant => { 1 => 'MSG_CBAE.Champ.42',
+						  2 => 'MSG_CIS.DE.42',
+						  3 => 'MSG_ACB2A.Champ.42'},
+						:terminal => { 1 => 'MSG_CBAE.Champ.41',
+						  2 => 'MSG_CIS.DE.41',
+						  3 => 'MSG_ACB2A.Champ.41'}}
+  end
+  
+  
+  def self.get_defaults_parsers
     files_list = Dir[Gem::Specification.find_by_name('parser').gem_dir + '/rsc/**/*.xml']
 	LogParser.info "Loading default parser in files [#{files_list.join(',')}]"
 
@@ -27,7 +56,7 @@ module Parser
 	return codecs
   end
   
-  def load_parsers_from_xml(xml_file)
+  def self.load_parsers_from_xml(xml_file)
     codecs = {}
   	xml_def = Document.new(IO.read(xml_file)).root
   	xml_def.elements.select{|c| c.name == 'codec'}.each{|codec|
@@ -59,4 +88,7 @@ module Parser
   	return codecs
   end
 
+  if defined?(DEFAULTS_PARSERS).nil?
+    DEFAULTS_PARSERS = get_defaults_parsers
+  end
 end
