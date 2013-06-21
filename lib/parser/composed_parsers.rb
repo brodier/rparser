@@ -149,8 +149,7 @@ module Parser
 	end
 	
 	def read_length
-	 b = @data.slice!(0)
-	 b = b.getbyte(0) if b.kind_of?(String)
+	 b = @data.slice!(0).getbyte(0)
 	 if b & 0x80 == 0x80
 	   ll = b & 0x7F 
 	   lb = @data[0,ll]
@@ -158,7 +157,7 @@ module Parser
 	   length = 0
 	   while(lb.length > 0)
 	     length *= 256
-		 length += lb.slice!(0)
+		   length += lb.slice!(0).getbyte(0)
 	   end
 	   return length
 	 else
@@ -169,19 +168,17 @@ module Parser
 	def read_tag
 	  b = 0
 	  while b == 0 || b == 255
-	    b = @data.slice!(0)
+	    b = @data.slice!(0).getbyte(0)
 	  end
-	  
-	  b = b.getbyte(0) if b.kind_of?(String)
-	  
+
 	  tag = b.chr
 	  
 	  if b & 0x1F == 0x1F
 	    nb = 0x80
 	    while nb & 0x80 == 0x80
-	      nb = @data.slice!(0)
-		  tag += nb.chr
-		end
+        nb = @data.slice!(0).getbyte(0)
+		    tag += nb.chr
+		  end
 	  end
 	  return tag.unpack("H*").first.upcase
 	end

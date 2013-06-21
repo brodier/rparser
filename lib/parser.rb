@@ -47,7 +47,7 @@ module Parser
   
   def self.get_defaults_parsers
     files_list = Dir[Gem::Specification.find_by_name('parser').gem_dir + '/rsc/**/*.xml']
-	LogParser.info "Loading default parser in files [#{files_list.join(',')}]"
+	LogParser.info "Loading DEFAULTS_PARSERS from files [#{files_list.join(',')}]"
 
         codecs = {}
 	files_list.each{|file|

@@ -74,6 +74,7 @@
 	  <subcodec id="12" ref="p6"/>
 	  <subcodec id="13" ref="p4"/>
 	  <subcodec id="14" ref="p4"/>
+    <subcodec id="15" ref="p4"/>
 	  <subcodec id="18" ref="p4"/>
 	  <subcodec id="19" ref="n3"/>
 	  <subcodec id="22" ref="p3"/>
@@ -109,6 +110,7 @@
 	  <subcodec id="70" ref="n3"/>
 	  <subcodec id="90" ref="n42"/>
 	  <subcodec id="95" ref="an42"/>
+    <subcodec id="100" ref="lvarn"/>
 	</codec>
 	
 	<codec id="MSG_ACB2A" type="struct">
@@ -320,7 +322,7 @@
 	  <subcodec id="57" ref="LLLA"/>
 	  <subcodec id="58" ref="LLLA"/>
 	  <subcodec id="59" ref="LLLA"/>
-	  <subcodec id="60" ref="CIS-AN3"/>
+	  <subcodec id="60" ref="LLLA"/>
 	  <subcodec id="61" ref="LLLA"/>
 	  <subcodec id="62" ref="LLLA"/>
 	  <subcodec id="63" ref="LLLA"/>
@@ -328,6 +330,8 @@
 	  <subcodec id="70" ref="CIS-N3"/>
 	  <subcodec id="90" ref="CIS-DE90"/>
 	  <subcodec id="102" ref="LLA"/>
+    <subcodec id="103" ref="LLA"/>
+    <subcodec id="121" ref="LLLA"/>
 	  <subcodec id="127" ref="LLLA"/>
 	</codec>
 			
