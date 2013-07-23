@@ -12,22 +12,23 @@ module Parser
 	
     def parse(buffer)
       l, buf = @length_parser.parse(buffer)
-	  len = get_length(l)
-	  if len == 0
-	    f = Field.new
-		f.set_id(@id)
-		f.set_value(nil)
-		return f,buf
-	  else
-	    begin
-		  f,remain = @value_parser.parse_with_length(buf,len)
-		rescue => e
-		  LogParser.error "Error in #{@id} parser \n #{e.message}\n#{e.backtrace.join(10.chr)}"
-		  raise ParsingException, e.message
-		end
+	    len = get_length(l)
+	    if len == 0
+	      f = Field.new
+		    f.set_id(@id)
+		    f.set_value(nil)
+		    return f,buf
+	    else
+	      begin
+		      f,remain = @value_parser.parse_with_length(buf,len)
+		    rescue => e
+		      LogParser.error "Error in #{@id} parser \n #{e.message}\n#{e.backtrace.join(10.chr)}"
+		      raise ParsingException, e.message
+		    end
+        
         f.set_id(@id)
         return f,remain
-	  end
+	    end
     end
 	
 	def build_field
@@ -49,30 +50,30 @@ module Parser
 	  super(att)
     end
 	
-	def get_length(header_field)
-		length_field = header_field.get_deep_field(@path,@separator)
-		if length_field.nil?
-		  return 0
-		else
-		  length_field.get_value.to_i
-		end
-	end
-
-	def parse(buffer)
-	  f = Field.new
-	  f.set_id(@id)
-	  head, buf = @length_parser.parse(buffer)
-	  head.set_id(@length_parser.id)
-	  f.add_sub_field(head)
-	  len = get_length(head)
-	  if len == 0
-		return f,buf
-	  else
-	    val,remain = @value_parser.parse_with_length(buf,len)
-        val.set_id(@value_parser.id)
-		f.add_sub_field(val)
-        return f,remain
+	  def get_length(header_field)
+	  	length_field = header_field.get_deep_field(@path,@separator)
+	  	if length_field.nil?
+	  	  return 0
+	  	else
+	  	  length_field.get_value.to_i
+	  	end
 	  end
-	end
+
+	  def parse(buffer)
+	    f = Field.new
+	    f.set_id(@id)
+	    head, buf = @length_parser.parse(buffer)
+	    head.set_id(@length_parser.id)
+	    f.add_sub_field(head)
+	    len = get_length(head)
+	    if len == 0
+	      return f,buf
+	    else
+	      val,remain = @value_parser.parse_with_length(buf,len)
+        val.set_id(@value_parser.id)
+	  	  f.add_sub_field(val)
+        return f,remain
+	    end
+	  end
   end  
 end

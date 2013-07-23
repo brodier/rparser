@@ -15,7 +15,8 @@ module Parser
   
   LogParser = Logger.new 'parserLog'
   LogParser.outputters = Outputter.stdout
-
+  LogParser.level=Logger::INFO
+  
   if defined?(PARSER_CONST).nil?
     PARSER_CONST = true
     PROTOCOL_HASH = {'MSG_CBAE_IP' => 1,

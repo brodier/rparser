@@ -32,9 +32,9 @@ module Parser
     def init_data(buf,length)
 	  length = 0 if length.nil?
       if(length != 0)
-	    if buf.length < length
-	      raise ErrorBufferUnderflow, "Not enough data for parsing #{@id} (#{length}/#{buf.length})"
-	    end
+	      if buf.length < length
+	        raise ErrorBufferUnderflow, "Not enough data for parsing #{@id} (#{length}/#{buf.length})"
+	      end
         @data = buf[0,length]
         @remain = buf[length,buf.length]
       else

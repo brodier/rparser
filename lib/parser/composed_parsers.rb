@@ -39,6 +39,7 @@ module Parser
           nextFields,buf = parseBitmap(buf,field_num)
           fields_list = fields_list + nextFields
         elsif @subParsers[fieldToParse.to_s].respond_to?(:parse)
+          LogParser.debug "Parsing bitmap field #{fieldToParse.to_s}"
           f,buf = @subParsers[fieldToParse.to_s].parse(buf)
           f.set_id(fieldToParse.to_s)
           msg.add_sub_field(f)
@@ -73,18 +74,19 @@ module Parser
       msg = Field.new(@id)
       working_buf = @data
       @subParsers.each{|id,parser|
-		if working_buf.length == 0
-		  if @length_unknown
-		    raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
-		  else
-		    # TO FIX : create specific class for complete struct and partial struct parsing
-			# LogParser.warn("Not enough data for parsing #{@id} in build_field")
-		  end
-		  f = Field.new(id)
-		  f.set_value("")
-		else 
-	      f,working_buf = parser.parse(working_buf)
-		end
+        LogParser.debug "Parsing struct field #{@id} : #{id}"
+		    if working_buf.length == 0
+		      if @length_unknown
+		        raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
+		      else
+		        # TO FIX : create specific class for complete struct and partial struct parsing
+		    	  # LogParser.warn("Not enough data for parsing #{@id} in build_field")
+		      end
+		      f = Field.new(id)
+		      f.set_value("")
+		    else 
+	        f,working_buf = parser.parse(working_buf)
+		    end
         f.set_id(id)
         msg.add_sub_field(f)
       }
@@ -129,13 +131,31 @@ module Parser
     def parse(buffer)
       msg = Field.new(@id)
       while(buffer.length > 0)
-        tag,buffer = @tag_parser.parse(buffer)
-        if @subParsers[tag.get_value.to_s].nil?
-          val,buffer = super(buffer)
-        else
-          l,buf = @length_parser.parse(buffer)
-          val,buffer = @subParsers[tag.get_value.to_s].parse_with_length(buf,l.get_value.to_i)
+        begin
+          tag,buffer = @tag_parser.parse(buffer)
+        rescue 
+          val = Field.new("ERR")
+          val.set_value("Error on parsing tag for TLV with following data [#{buffer.unpack("H*").first}]")
+          msg.add_sub_field(val)
+          return msg
         end
+        begin
+          if @subParsers[tag.get_value.to_s].nil?
+            val,buffer = super(buffer)
+          else
+            l,buf = @length_parser.parse(buffer)
+            val,buffer = @subParsers[tag.get_value.to_s].parse_with_length(buf,l.get_value.to_i)
+          end
+        rescue ErrorBufferUnderflow => e
+          val = Field.new
+          val.set_value("Buffer underflow when parsing this tag : #{e.message} [#{buffer.unpack("H*").first}]")
+          buffer = ""
+        rescue 
+          val = Field.new
+          val.set_value("Parsing error [#{buffer.unpack("H*").first}]")
+          buffer = ""
+        end
+        
         val.set_id(tag.get_value.to_s)
         msg.add_sub_field(val)
       end
@@ -194,8 +214,8 @@ module Parser
 	  msg = Field.new(@id)
 	  while @data.length > 0
 	    f = Field.new(read_tag)
-		f.set_value(read_value(read_length))
-		msg.add_sub_field(f)
+		  f.set_value(read_value(read_length))
+		  msg.add_sub_field(f)
 	  end
 	  return msg
 	end
