@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <codecs>
-    <codec id="nb0" type="numbin" length="0"/>
+  <codec id="nb0" type="numbin" length="0"/>
 	<codec id="num" type="numpck" length="0"/>
 	<codec id="strpck" type="strpck" length="0"/>
 	<codec id="asc" type="string" length="0"/>
 	<codec id="bin" type="binary" length="0"/>
 
 	<codec id="nb4" type="numbin" length="4"/>
-	<codec id="nb1" type="numbin" length="1"/>	
+	<codec id="nb2" type="numbin" length="2"/>	
+  <codec id="nb1" type="numbin" length="1"/>	
 	
 	<codec id="n1" type="numpck" length="1"/>
 	<codec id="n2" type="numpck" length="2"/>
 	<codec id="n3" type="numpck" length="3"/>
+	<codec id="n4" type="numpck" length="3"/>
 	<codec id="n6" type="numpck" length="6"/>
 	<codec id="n8" type="numpck" length="8"/>
 	<codec id="n10" type="numpck" length="10"/>
@@ -25,12 +27,15 @@
 	<codec id="p8" type="strpck" length="8"/>
 	<codec id="p10" type="strpck" length="10"/>
 	<codec id="p12" type="strpck" length="12"/>
+	<codec id="p14" type="strpck" length="14"/>
 	
 	<codec id="nums2" type="numstr" length="2"/>
-	
+	<codec id="nums3" type="numstr" length="3"/>
+  
 	<codec id="an1" type="string" length="1"/>
 	<codec id="an2" type="string" length="2"/>
 	<codec id="an3" type="string" length="3"/>
+  <codec id="an4" type="string" length="4"/>
 	<codec id="an5" type="string" length="5"/>
 	<codec id="an6" type="string" length="6"/>
 	<codec id="an7" type="string" length="7"/>
@@ -44,6 +49,7 @@
     
 	<codec id="b1" type="binary" length="1"/>
 	<codec id="b2" type="binary" length="2"/>
+  <codec id="b3" type="binary" length="3"/>
 	<codec id="b8" type="binary" length="8"/>
 	
 	<codec id="tlvb_acb2a" type="tlv" header="b2" length="nb1" content="bin">
@@ -51,15 +57,31 @@
 
 	<codec id="tlva_acb2a" type="tlv" header="an2" length="nums2" content="asc">
 	</codec>
+	
+  <codec id="tlva_tcb2a" type="tlv" header="an2" length="nums3" content="asc">
+	</codec>
 
+  <codec id="tlvb_tcb2a" type="tlv" header="b2" length="nb2" content="bin"></codec>
+  <codec id="tlvba_tcb2a" type="tlv" header="b2" length="nb2" content="asc"></codec>
 	
 	<codec id="lvarp" type="prefixedlength" length="nb1" content="strpck"/>
 	<codec id="lvarn" type="prefixedlength" length="nb1" content="num"/>
-    <codec id="lvaran" type="prefixedlength" length="nb1" content="asc"/>
+  <codec id="llvarn" type="prefixedlength" length="nb2" content="num"/>
+  
+  <codec id="lvaran" type="prefixedlength" length="nb1" content="asc"/>
 	<codec id="lvarb" type="prefixedlength" length="nb1" content="bin"/>
+
 	<codec id="lvar_tlvb_acb2a" type="prefixedlength" length="nb1" content="tlvb_acb2a"/>
 	<codec id="lvar_tlva_acb2a" type="prefixedlength" length="nb1" content="tlva_acb2a"/>
-    <codec id="bertlv" type="bertlv"/>
+
+	<codec id="lvar_tlvb_tcb2a" type="prefixedlength" length="nb1" content="tlvb_tcb2a"/>
+	<codec id="lvar_tlva_tcb2a" type="prefixedlength" length="nb1" content="tlva_tcb2a"/>
+  <codec id="lvar_tlvba_tcb2a" type="prefixedlength" length="nb1" content="tlvba_tcb2a"/>
+
+	<codec id="llvar_tlvb_tcb2a" type="prefixedlength" length="nb2" content="tlvb_tcb2a"/>
+	<codec id="llvar_tlva_tcb2a" type="prefixedlength" length="nb2" content="tlva_tcb2a"/>
+  
+  <codec id="bertlv" type="bertlv"/>
 
 	
 	<codec id="chps_acb2a" type="bitmap" length="8">
@@ -82,8 +104,8 @@
 	  <subcodec id="25" ref="n2"/>
 	  <subcodec id="26" ref="n2"/>
 	  <subcodec id="27" ref="n1"/>
-	  <subcodec id="32" ref="lvarn"/>
-	  <subcodec id="33" ref="lvarn"/>
+	  <subcodec id="32" ref="lvarp"/>
+	  <subcodec id="33" ref="lvarp"/>
 	  <subcodec id="35" ref="lvarp"/>
 	  <subcodec id="37" ref="an12"/>
 	  <subcodec id="38" ref="an6"/>
@@ -112,12 +134,76 @@
 	  <subcodec id="95" ref="an42"/>
     <subcodec id="100" ref="lvarn"/>
 	</codec>
+
+	<codec id="chps_tcb2a" type="bitmap" length="8">
+	  <extention ref="1"/>
+	  <subcodec id="2" ref="lvarn"/>
+	  <subcodec id="3" ref="n6"/>
+	  <subcodec id="4" ref="n12"/>
+	  <subcodec id="6" ref="n12"/>
+	  <subcodec id="11" ref="n6"/>
+	  <subcodec id="12" ref="p6"/>
+	  <subcodec id="13" ref="p4"/>
+	  <subcodec id="14" ref="p4"/>
+    <subcodec id="15" ref="p4"/>
+	  <subcodec id="18" ref="p4"/>
+	  <subcodec id="19" ref="n3"/>
+	  <subcodec id="20" ref="p3"/>
+	  <subcodec id="21" ref="an6"/>
+	  <subcodec id="22" ref="n6"/>
+	  <subcodec id="23" ref="p3"/>
+    <subcodec id="24" ref="n3"/>
+	  <subcodec id="25" ref="n4"/>
+	  <subcodec id="26" ref="p6"/>
+	  <subcodec id="27" ref="p6"/>
+	  <subcodec id="31" ref="lvaran"/>
+	  <subcodec id="32" ref="lvarn"/>
+    <subcodec id="33" ref="lvarn"/>
+	  <subcodec id="35" ref="lvarp"/>
+	  <subcodec id="37" ref="an12"/>
+	  <subcodec id="38" ref="an6"/>
+	  <subcodec id="39" ref="an4"/>
+	  <subcodec id="40" ref="an3"/>
+	  <subcodec id="41" ref="an8"/>
+	  <subcodec id="42" ref="an15"/>
+	  <subcodec id="43" ref="an40"/>
+	  <subcodec id="44" ref="lvar_tlva_tcb2a"/>
+	  <subcodec id="46" ref="lvar_tlvba_tcb2a"/>
+	  <subcodec id="47" ref="lvar_tlva_tcb2a"/>
+	  <subcodec id="49" ref="n3"/>	  
+	  <subcodec id="50" ref="n3"/>	  
+	  <subcodec id="53" ref="n16"/>
+	  <subcodec id="54" ref="lvaran"/>
+	  <subcodec id="55" ref="lvar_tlvb_tcb2a"/>
+	  <subcodec id="56" ref="llvarn"/>
+    <subcodec id="57" ref="lvar_tlvb_tcb2a"/>
+    <subcodec id="58" ref="lvar_tlvb_tcb2a"/>
+	  <subcodec id="66" ref="n1"/>
+	  <subcodec id="67" ref="p4"/>
+	  <subcodec id="70" ref="p14"/>
+    <subcodec id="71" ref="p14"/>
+    <subcodec id="72" ref="llvar_tlvb_tcb2a"/>
+    <subcodec id="74" ref="n10"/>
+    <subcodec id="75" ref="n10"/>
+    <subcodec id="76" ref="n10"/>
+    <subcodec id="77" ref="n10"/>
+    <subcodec id="86" ref="n16"/>
+    <subcodec id="87" ref="n16"/>
+    <subcodec id="88" ref="n16"/>
+    <subcodec id="89" ref="n16"/>
+    <subcodec id="118" ref="llvar_tlva_tcb2a"/>
+	</codec>
 	
 	<codec id="MSG_ACB2A" type="struct">
 	  <subcodec id="ITM" ref="p4"/>
 	  <subcodec id="Champ" ref="chps_acb2a"/>
 	</codec>
 
+	<codec id="MSG_TCB2A" type="struct">
+	  <subcodec id="ITM" ref="p4"/>
+	  <subcodec id="Champ" ref="chps_tcb2a"/>
+	</codec>
+  
 	
 	<codec id="pi_list" type="tlv" header="b1" length="nb1" content="bin">
 	  <subcodec id="07" ref="nb0"/>
@@ -130,6 +216,8 @@
 	</codec>
 
 	<codec id="MSG_CBCOM_ACB2A" type="headerlength" header="cbComH" length=".PI.07" content="MSG_ACB2A" />
+
+	<codec id="MSG_CBCOM_TCB2A" type="headerlength" header="cbComH" length=".PI.07" content="MSG_TCB2A" />
 	
 	<codec id="MSG_ACB2A_IP" type="prefixedlength" length="nb4" content="MSG_CBCOM_ACB2A" />
 	
@@ -245,7 +333,9 @@
 	</codec>
 	
 	<codec id="T2L2V" type="tlv" header="CIS-AN2" length="CIS-N2" content="asc"/>
+  <codec id="T3L3V" type="tlv" header="CIS-AN3" length="CIS-N3" content="asc"/>
 
+  
 	<codec id="CIS-DE48-CONTENT" type="struct">
 		<subcodec id="TCC" ref="CIS-AN1"/>
 		<subcodec id="DE48SE" ref="T2L2V"/>
@@ -260,6 +350,17 @@
 		<subcodec id="SF4" ref="CIS-N11"/>
 		<subcodec id="SF5" ref="CIS-N11"/>
 	</codec>
+
+	<codec id="CIS-DE95" type="struct">
+		<subcodec id="SF1" ref="CIS-N12"/>
+		<subcodec id="SF2" ref="CIS-N12"/>
+		<subcodec id="SF3" ref="CIS-N12"/>
+		<subcodec id="SF4" ref="CIS-N6"/>
+	</codec>
+	
+	<codec id="CIS-DE112" type="prefixedlength" length="LLL" content="T3L3V" />
+	
+  <codec id="CIS-DE120" type="prefixedlength" length="LLL" content="T2L2V" />
 	
 	
 	<codec id="bitmap_cis" type="bitmap" length="8">
@@ -329,8 +430,12 @@
 	  <subcodec id="64" ref="CIS-B8"/>
 	  <subcodec id="70" ref="CIS-N3"/>
 	  <subcodec id="90" ref="CIS-DE90"/>
-	  <subcodec id="102" ref="LLA"/>
+    <subcodec id="95" ref="CIS-DE95"/>
+	  <subcodec id="100" ref="LLA"/>
+    <subcodec id="102" ref="LLA"/>
     <subcodec id="103" ref="LLA"/>
+    <subcodec id="112" ref="CIS-DE112"/>
+    <subcodec id="120" ref="CIS-DE120"/>
     <subcodec id="121" ref="LLLA"/>
 	  <subcodec id="127" ref="LLLA"/>
 	</codec>
@@ -342,4 +447,42 @@
 	
 	<codec id="nb2" type="numbin" length="2"/>
 	<codec id="MSG_CIS_IP" type="prefixedlength" length="nb2" content="MSG_CIS"/>
+  
+  <codec id="H.1" type="numbin" length="1"/>	
+  
+	<codec id="H" type="struct">
+		<subcodec id="2" ref="b1"/>
+		<subcodec id="3" ref="b1"/>
+		<subcodec id="4" ref="nb2"/>
+    <subcodec id="5" ref="p6"/>
+    <subcodec id="6" ref="p6"/>
+    <subcodec id="7" ref="b1"/>
+    <subcodec id="8" ref="b2"/>
+    <subcodec id="9" ref="b3"/>
+    <subcodec id="10" ref="b1"/>
+    <subcodec id="11" ref="b3"/>
+    <subcodec id="12" ref="b1"/>
+    <subcodec id="13" ref="b2"/>
+    <subcodec id="14" ref="p4"/>
+	</codec>
+  
+  <codec id="VIS_HEADERS" type="headerfulllength" header="H.1" length="." content="H"/>
+
+	<codec id="bitmap_visa" type="bitmap" length="8">
+	  <extention ref="1"/>
+    <extention ref="65"/>
+	  <subcodec id="2" ref="lvarn"/>
+	  <subcodec id="3" ref="n6"/>
+	  <subcodec id="4" ref="n12"/>
+	  <subcodec id="6" ref="n12"/>
+	  <subcodec id="7" ref="n10"/>
+  </codec>
+ 	
+  <codec id="MSG_VISA" type="struct">
+		<subcodec id="ITM" ref="p4"/>
+		<subcodec id="F" ref="bitmap_visa"/>
+	</codec> 
+  
+  <codec id="MSG_VISA_IP" type="headerfulllength" header="VIS_HEADERS" length=".H.4" content="MSG_VISA" />  
+  
 </codecs>

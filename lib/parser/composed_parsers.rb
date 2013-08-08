@@ -2,7 +2,7 @@ module Parser
   class BitmapParser < AbstractParser
     NB_BITS_BY_BYTE = 8
     def initialize(att)
-	  super(att)
+    super(att)
       @num_extended_bitmaps=[]
       @subParsers = {}
     end
@@ -44,9 +44,9 @@ module Parser
           f.set_id(fieldToParse.to_s)
           msg.add_sub_field(f)
         else
-		  f = Field.new("ERR") 
-		  f.set_value(buf.unpack("H*").first)
-		  msg.add_sub_field(f)
+  	  f = Field.new("ERR") 
+  	  f.set_value(buf.unpack("H*").first)
+  	  msg.add_sub_field(f)
           raise ParsingException,msg.to_yaml + "\nError unknown field #{fieldToParse.to_s} : "
         end
       end
@@ -59,60 +59,60 @@ module Parser
       @id = att['id']
       @subParsers = []
     end
-	
-	def parse(buf)
-	  @length_unknown = true
-	  super(buf)
-	end
-
-	def parse_with_length(buf,length)
-	  @length_unknown = false
-	  super(buf,length)
-	end
-
+  
+  def parse(buf)
+    @length_unknown = true
+    super(buf)
+  end
+  
+  def parse_with_length(buf,length)
+    @length_unknown = false
+    super(buf,length)
+  end
+  
     def build_field
       msg = Field.new(@id)
       working_buf = @data
       @subParsers.each{|id,parser|
         LogParser.debug "Parsing struct field #{@id} : #{id}"
-		    if working_buf.length == 0
-		      if @length_unknown
-		        raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
-		      else
-		        # TO FIX : create specific class for complete struct and partial struct parsing
-		    	  # LogParser.warn("Not enough data for parsing #{@id} in build_field")
-		      end
-		      f = Field.new(id)
-		      f.set_value("")
-		    else 
-	        f,working_buf = parser.parse(working_buf)
-		    end
+  	    if working_buf.length == 0
+  	      if @length_unknown
+  	        raise ErrorBufferUnderflow, "Not enough data for parsing Struct #{@id} stop on field #{id}"
+  	      else
+  	        # TO FIX : create specific class for complete struct and partial struct parsing
+  	    	  # LogParser.warn("Not enough data for parsing #{@id} in build_field")
+  	      end
+  	      f = Field.new(id)
+  	      f.set_value("")
+  	    else 
+          f,working_buf = parser.parse(working_buf)
+  	    end
         f.set_id(id)
         msg.add_sub_field(f)
       }
-	  
-	  if working_buf.length > 0
-	    if @length_unknown 
-		  @remain = working_buf 
-		else
-	      f = Field.new("PADDING")
-		  f.set_value(working_buf.unpack("H*"))
-		  msg.add_sub_field(f)
-		end
-	  end
-      
-	  return msg
+    
+    if working_buf.length > 0
+      if @length_unknown 
+  	  @remain = working_buf 
+  	else
+      f = Field.new("PADDING")
+  	  f.set_value(working_buf.unpack("H*").first)
+  	  msg.add_sub_field(f)
+  	end
     end
-	
-	def add_subparser(id_field,parser)
-	  if parser.nil?
-	    raise ErrorBuildingParser, "Invalid codec reference in subparser #{id_field} for codec #{@id}"
-	  end
+      
+    return msg
+    end
+  
+  def add_subparser(id_field,parser)
+    if parser.nil?
+      raise ErrorBuildingParser, "Invalid codec reference in subparser #{id_field} for codec #{@id}"
+    end
       @subParsers << [id_field, parser]
     end 
-	
+  
   end
-
+  
   class TlvParser < PrefixedlengthParser
     
     def initialize(att)
@@ -123,11 +123,11 @@ module Parser
     
     def parse_with_length(buf,length)
       init_data(buf,length)
-	  f,r = parse(@data)
-	  # log warn remain data in tlv parse_with_length
+    f,r = parse(@data)
+    # log warn remain data in tlv parse_with_length
       return f,@remain
     end
-	
+  
     def parse(buffer)
       msg = Field.new(@id)
       while(buffer.length > 0)
@@ -165,64 +165,64 @@ module Parser
   
   class BertlvParser < AbstractParser
     def initialize(att)
-	  @id = att['id']
-	end
-	
-	def read_length
-	 b = @data.slice!(0).getbyte(0)
-	 if b & 0x80 == 0x80
-	   ll = b & 0x7F 
-	   lb = @data[0,ll]
-	   @data = @data[ll,@data.length]
-	   length = 0
-	   while(lb.length > 0)
-	     length *= 256
-		   length += lb.slice!(0).getbyte(0)
-	   end
-	   return length
-	 else
-	   return b
-	 end
-	end
-	
-	def read_tag
-	  b = 0
-	  while b == 0 || b == 255
-	    b = @data.slice!(0).getbyte(0)
-	  end
-
-	  tag = b.chr
-	  
-	  if b & 0x1F == 0x1F
-	    nb = 0x80
-	    while nb & 0x80 == 0x80
+    @id = att['id']
+  end
+  
+  def read_length
+   b = @data.slice!(0).getbyte(0)
+   if b & 0x80 == 0x80
+     ll = b & 0x7F 
+     lb = @data[0,ll]
+     @data = @data[ll,@data.length]
+     length = 0
+     while(lb.length > 0)
+       length *= 256
+  	   length += lb.slice!(0).getbyte(0)
+     end
+     return length
+   else
+     return b
+   end
+  end
+  
+  def read_tag
+    b = 0
+    while b == 0 || b == 255
+      b = @data.slice!(0).getbyte(0)
+    end
+  
+    tag = b.chr
+    
+    if b & 0x1F == 0x1F
+      nb = 0x80
+      while nb & 0x80 == 0x80
         nb = @data.slice!(0).getbyte(0)
-		    tag += nb.chr
-		  end
-	  end
-	  return tag.unpack("H*").first.upcase
-	end
-
-	def read_value(length)
-	  raise ErrorBufferUnderflow,"Not enough data for parsing BER TLV #{@id} length value #{length} remaining only #{@data.length}" if length > @data.length
-	  value = @data[0,length]
-	  @data = @data[length,@data.length]
-	  return value.unpack("H*").first.upcase
-	end
-	
-	def build_field
-	  msg = Field.new(@id)
-	  while @data.length > 0
-	    f = Field.new(read_tag)
-		  f.set_value(read_value(read_length))
-		  msg.add_sub_field(f)
-	  end
-	  return msg
-	end
-	
-	def parse(buffer)
-	  @data = buffer
-	  return build_field,""
-	end
+  	    tag += nb.chr
+  	  end
+    end
+    return tag.unpack("H*").first.upcase
+  end
+  
+  def read_value(length)
+    raise ErrorBufferUnderflow,"Not enough data for parsing BER TLV #{@id} length value #{length} remaining only #{@data.length}" if length > @data.length
+    value = @data[0,length]
+    @data = @data[length,@data.length]
+    return value.unpack("H*").first.upcase
+  end
+  
+  def build_field
+    msg = Field.new(@id)
+    while @data.length > 0
+      f = Field.new(read_tag)
+  	  f.set_value(read_value(read_length))
+  	  msg.add_sub_field(f)
+    end
+    return msg
+  end
+  
+  def parse(buffer)
+    @data = buffer
+    return build_field,""
+  end
   end
 end

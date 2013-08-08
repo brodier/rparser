@@ -6,9 +6,9 @@ module Parser
       @id = att['id']
     end
 	
-	def get_length(length_field)
-		length_field.get_value.to_i
-	end
+    def get_length(length_field)
+    	length_field.get_value.to_i
+    end
 	
     def parse(buffer)
       l, buf = @length_parser.parse(buffer)
@@ -31,26 +31,27 @@ module Parser
 	    end
     end
 	
-	def build_field
-	  begin
-	    f,r = parse(@data)
-	  rescue ErrorBufferUnderflow => e
-	    raise ParsingException, e.message
+	  def build_field
+	    begin
+	      f,r = parse(@data)
+	    rescue ErrorBufferUnderflow => e
+	      raise ParsingException, e.message
+	    end
+	    # log error if r != ""
+	    return f
 	  end
-	  # log error if r != ""
-	  return f
-	end
   end
 
   class HeaderlengthParser < PrefixedlengthParser
     def initialize(att)
-	  @path = att['length'] # length attribute contain the path for length field in header
-	  @separator = @path.slice!(0).chr # first character contain the separator
-	  att['length'] = att['header'] # Prefixedlength constructor used length attribute for header codec
-	  super(att)
+      @path = att['length'] # length attribute contain the path for length field in header
+      @separator = @path.slice!(0).chr # first character contain the separator
+      att['length'] = att['header'] # Prefixedlength constructor used length attribute for header codec
+      super(att)
     end
 	
 	  def get_length(header_field)
+      return header_field.get_value.to_i if @path.length == 0 # Handle simple numeric header field
 	  	length_field = header_field.get_deep_field(@path,@separator)
 	  	if length_field.nil?
 	  	  return 0
@@ -69,6 +70,7 @@ module Parser
 	    if len == 0
 	      return f,buf
 	    else
+        len -= (buffer.length - buf.length) if @header_length_include
 	      val,remain = @value_parser.parse_with_length(buf,len)
         val.set_id(@value_parser.id)
 	  	  f.add_sub_field(val)
@@ -76,4 +78,12 @@ module Parser
 	    end
 	  end
   end  
+
+  class HeaderfulllengthParser < HeaderlengthParser
+    def initialize(att)
+      @header_length_include = true
+      super(att)
+    end
+  end
+  
 end

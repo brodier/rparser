@@ -14,8 +14,8 @@ module Parser
   require 'parser/packed_parsers'
   
   LogParser = Logger.new 'parserLog'
-  LogParser.outputters = Outputter.stdout
-  LogParser.level=Logger::INFO
+  LogParser.outputters = Outputter.stderr
+  LogParser.level=INFO
   
   if defined?(PARSER_CONST).nil?
     PARSER_CONST = true
